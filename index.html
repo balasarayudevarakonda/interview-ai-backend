@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview AI — Ace Every Interview</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',system-ui,sans-serif; background:#080812; color:#e2e8f0; }
+    nav { display:flex; justify-content:space-between; align-items:center; padding:18px 40px; border-bottom:1px solid #1a1a2e; }
+    .logo { font-size:18px; font-weight:700; color:#a78bfa; }
+    .nav-btn { background:#7c3aed; color:white; padding:8px 20px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; }
+    .hero { text-align:center; padding:80px 20px 60px; }
+    .hero h1 { font-size:48px; font-weight:700; color:#e2e8f0; line-height:1.2; margin-bottom:16px; }
+    .hero h1 span { color:#a78bfa; }
+    .hero p { font-size:18px; color:#888; max-width:540px; margin:0 auto 32px; line-height:1.6; }
+    .hero-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn-primary { background:#7c3aed; color:white; padding:14px 32px; border-radius:10px; text-decoration:none; font-size:15px; font-weight:600; }
+    .btn-secondary { background:transparent; color:#a78bfa; padding:14px 32px; border-radius:10px; text-decoration:none; font-size:15px; font-weight:600; border:1px solid #a78bfa; }
+    .features { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:60px 40px; max-width:1000px; margin:0 auto; }
+    .feature { background:#111120; border:1px solid #2a2a45; border-radius:12px; padding:24px; }
+    .feature .icon { font-size:28px; margin-bottom:12px; }
+    .feature h3 { font-size:15px; font-weight:600; color:#e2e8f0; margin-bottom:8px; }
+    .feature p { font-size:13px; color:#666; line-height:1.6; }
+    .pricing { text-align:center; padding:60px 20px; }
+    .pricing h2 { font-size:32px; font-weight:700; margin-bottom:40px; }
+    .plans { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+    .plan { background:#111120; border:1px solid #2a2a45; border-radius:16px; padding:28px 24px; width:240px; }
+    .plan.popular { border-color:#7c3aed; }
+    .plan .badge { background:#7c3aed; color:white; font-size:10px; font-weight:600; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:12px; }
+    .plan h3 { font-size:16px; font-weight:600; margin-bottom:6px; }
+    .plan .price { font-size:32px; font-weight:700; color:#a78bfa; margin:12px 0; }
+    .plan .price span { font-size:14px; font-weight:400; color:#666; }
+    .plan p { font-size:12px; color:#666; margin-bottom:20px; }
+    .plan a { display:block; background:#7c3aed; color:white; padding:10px; border-radius:8px; text-decoration:none; font-size:13px; font-weight:600; text-align:center; }
+    .download { text-align:center; padding:60px 20px; background:#111120; }
+    .download h2 { font-size:28px; font-weight:700; margin-bottom:12px; }
+    .download p { color:#666; margin-bottom:28px; }
+    .download a { background:#7c3aed; color:white; padding:16px 40px; border-radius:10px; text-decoration:none; font-size:16px; font-weight:600; display:inline-block; }
+    footer { text-align:center; padding:24px; color:#444; font-size:13px; border-top:1px solid #1a1a2e; }
+
+    /* SUCCESS PAGE */
+    #success-page { display:none; min-height:100vh; align-items:center; justify-content:center; flex-direction:column; padding:40px 20px; text-align:center; }
+    #success-page.show { display:flex; }
+    .success-box { background:#111120; border:1px solid #2a2a45; border-radius:20px; padding:48px 40px; max-width:480px; width:100%; }
+    .success-icon { font-size:48px; margin-bottom:16px; }
+    .success-box h2 { font-size:26px; font-weight:700; margin-bottom:8px; }
+    .success-box p { color:#666; font-size:14px; margin-bottom:28px; line-height:1.6; }
+    .success-box input { width:100%; background:#0d0d1a; border:1px solid #2a2a45; border-radius:10px; padding:14px 16px; color:#e2e8f0; font-size:15px; margin-bottom:12px; outline:none; }
+    .success-box input:focus { border-color:#7c3aed; }
+    .success-box button { width:100%; background:#7c3aed; color:white; border:none; padding:14px; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; }
+    .success-box button:hover { background:#6d28d9; }
+    .license-result { display:none; margin-top:24px; background:#0d0d1a; border:1px solid #2a2a45; border-radius:12px; padding:20px; }
+    .license-result.show { display:block; }
+    .license-key { font-family:monospace; font-size:18px; color:#a78bfa; letter-spacing:2px; margin:8px 0 16px; word-break:break-all; }
+    .copy-btn { background:transparent; border:1px solid #7c3aed; color:#a78bfa; padding:8px 20px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; }
+    .download-btn { display:inline-block; margin-top:16px; background:#7c3aed; color:white; padding:12px 28px; border-radius:10px; text-decoration:none; font-size:14px; font-weight:600; }
+    .error-msg { color:#f87171; font-size:13px; margin-top:8px; display:none; }
+    .error-msg.show { display:block; }
+    .loading-msg { color:#888; font-size:13px; margin-top:8px; display:none; }
+    .loading-msg.show { display:block; }
+    #main-page.hide { display:none; }
+  </style>
+</head>
+<body>
+
+<!-- SUCCESS PAGE — shown after Razorpay payment -->
+<div id="success-page">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <h2>Payment Successful!</h2>
+    <p>Enter the email you used during payment to get your license key.</p>
+    <input type="email" id="email-input" placeholder="your@email.com" />
+    <div class="error-msg" id="error-msg">Please enter a valid email.</div>
+    <div class="loading-msg" id="loading-msg">Fetching your license key...</div>
+    <button onclick="fetchLicense()">Get My License Key</button>
+    <div class="license-result" id="license-result">
+      <p style="color:#888;font-size:13px;margin-bottom:4px;">Your license key:</p>
+      <div class="license-key" id="license-key-display">—</div>
+      <button class="copy-btn" onclick="copyKey()">📋 Copy Key</button>
+      <br/>
+      <a class="download-btn" href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">
+        ⬇ Download Interview AI
+      </a>
+      <p style="color:#555;font-size:12px;margin-top:16px;">Key also sent to your email. Open the app → enter this key to activate.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main-page">
+  <nav>
+    <div class="logo">🤖 Interview AI</div>
+    <a href="#download" class="nav-btn">Download Free</a>
+  </nav>
+
+  <div class="hero">
+    <h1>Ace Every Interview<br>with <span>AI Assistance</span></h1>
+    <p>Real-time AI-powered answers to interview questions. Works silently in the background while you interview.</p>
+    <div class="hero-btns">
+      <a href="#download" class="btn-primary">⬇ Download for Windows</a>
+      <a href="#pricing" class="btn-secondary">View Plans</a>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature"><div class="icon">🧠</div><h3>AI Answer Engine</h3><p>Get instant answers to behavioral, technical, and coding questions powered by advanced AI.</p></div>
+    <div class="feature"><div class="icon">🎤</div><h3>Voice Detection</h3><p>Speak your question and get answers automatically — no typing needed during interviews.</p></div>
+    <div class="feature"><div class="icon">📄</div><h3>Resume Matching</h3><p>Upload your resume and get personalized answers based on your actual experience.</p></div>
+    <div class="feature"><div class="icon">🖥</div><h3>Screen Capture</h3><p>Capture coding problems from your screen and get instant solutions with explanations.</p></div>
+    <div class="feature"><div class="icon">👁</div><h3>Invisible Mode</h3><p>Adjust opacity and always-on-top mode — stays hidden from screen sharing.</p></div>
+    <div class="feature"><div class="icon">⚡</div><h3>Instant Answers</h3><p>Get answers in under 2 seconds using the fastest AI models available.</p></div>
+  </div>
+
+  <div class="pricing" id="pricing">
+    <h2>Simple Pricing</h2>
+    <div class="plans">
+      <div class="plan">
+        <h3>Monthly</h3>
+        <div class="price">₹499<span>/mo</span></div>
+        <p>Billed every month</p>
+        <!-- PASTE your Razorpay monthly link here -->
+        <a href="https://rzp.io/l/YOUR_MONTHLY_LINK" target="_blank">Get Started</a>
+      </div>
+      <div class="plan popular">
+        <div class="badge">BEST VALUE</div>
+        <h3>Yearly</h3>
+        <div class="price">₹4999<span>/yr</span></div>
+        <p>Save 58% vs monthly</p>
+        <!-- PASTE your Razorpay yearly link here -->
+        <a href="https://rzp.io/l/YOUR_YEARLY_LINK" target="_blank">Get Started</a>
+      </div>
+      <div class="plan">
+        <h3>Lifetime</h3>
+        <div class="price">₹9999</div>
+        <p>Pay once, use forever</p>
+        <!-- PASTE your Razorpay lifetime link here -->
+        <a href="https://rzp.io/l/YOUR_LIFETIME_LINK" target="_blank">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="download" id="download">
+    <h2>Download Interview AI</h2>
+    <p>Free to download. Sign up and choose a plan inside the app.</p>
+    <a href="https://github.com/balasarayudevarakonda/interview-ai/releases/download/v1.0.0/Interview.AI.Setup.1.0.0.exe">⬇ Download for Windows (.exe)</a>
+  </div>
+
+  <footer>
+    © 2026 Interview AI · Built with ❤ · <a href="mailto:balasarayudevarakonda@gmail.com" style="color:#a78bfa;">Contact</a>
+  </footer>
+</div>
+
+<script>
+  // Auto-show success page if URL has ?payment=success
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') === 'success') {
+    document.getElementById('success-page').classList.add('show');
+    document.getElementById('main-page').classList.add('hide');
+  }
+
+  async function fetchLicense() {
+    const email = document.getElementById('email-input').value.trim();
+    const errorEl = document.getElementById('error-msg');
+    const loadingEl = document.getElementById('loading-msg');
+    const resultEl = document.getElementById('license-result');
+
+    errorEl.classList.remove('show');
+    resultEl.classList.remove('show');
+
+    if (!email || !email.includes('@')) {
+      errorEl.textContent = 'Please enter a valid email.';
+      errorEl.classList.add('show');
+      return;
+    }
+
+    loadingEl.classList.add('show');
+
+    try {
+      // ⚠️ Replace with your Railway backend URL after deploying
+      const res = await fetch('https://interview-ai-backend-hu7r.onrender.com/get-license', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      loadingEl.classList.remove('show');
+
+      if (data.licenseKey) {
+        document.getElementById('license-key-display').textContent = data.licenseKey;
+        resultEl.classList.add('show');
+      } else {
+        errorEl.textContent = data.error || 'No license found. Contact support.';
+        errorEl.classList.add('show');
+      }
+    } catch (err) {
+      loadingEl.classList.remove('show');
+      errorEl.textContent = 'Server error. Please try again or contact support.';
+      errorEl.classList.add('show');
+    }
+  }
+
+  function copyKey() {
+    const key = document.getElementById('license-key-display').textContent;
+    navigator.clipboard.writeText(key).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✅ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy Key', 2000);
+    });
+  }
+</script>
+</body>
+</html>
